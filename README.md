@@ -1,153 +1,79 @@
-```markdown
-# Rock Paper Scissors (RPS) Game
+# Rock Paper Scissors Game in C
 
-This is a simple command-line implementation of the classic Rock Paper Scissors game in C. The player competes against the computer, which makes random choices.
-
-## How to Play
-
-1. Run the program.
-2. Choose your play by entering a number:
-   - `1` for Rock
-   - `2` for Paper
-   - `3` for Scissors
-3. The computer will also make a random choice.
-4. The result of the game will be displayed:
-   - Draw
-   - Player won
-   - Computer won
+## Overview
+This is a simple **Rock Paper Scissors** game implemented in **C** where the user plays against the computer. The game allows the player to select one of the three moves (Rock, Paper, Scissors), and the computer randomly chooses a move. The program determines the winner based on the standard rules of Rock Paper Scissors.
 
 ## Features
+- Player can choose between Rock (1), Paper (2), or Scissors (3).
+- The computer randomly selects a choice.
+- The game handles input validation for player’s choice.
+- Displays the result of each round, showing whether the player or computer wins, or if it’s a draw.
+- Option to quit the game anytime.
 
-- Random computer choice using `rand()`.
-- Input validation to ensure the player enters a valid number.
-- Clear display of the game result.
+## How to Play
+1. When prompted, input your choice using numbers:
+    - `1` for Rock
+    - `2` for Paper
+    - `3` for Scissors
+2. The program will compare your choice with the computer’s choice and display the result.
+3. You can choose to play again or quit the game.
 
-## Code Overview
+## Requirements
+- C compiler (e.g., GCC) to compile and run the code.
+
+## Instructions
+1. Clone or download this repository.
+2. Open a terminal and navigate to the directory where the file is saved.
+3. Compile the code:
+   ```bash
+   gcc -o rps rps.c
+   ```
+4. Run the program:
+   ```bash
+   ./rps
+   ```
+
+## Code Explanation
 
 ### `computerChoice` Function
-
-Generates a random choice for the computer (1 for Rock, 2 for Paper, 3 for Scissors).
-
-```c
-int computerChoice() {
-    srand(time(NULL));
-    int computer = rand() % 3 + 1;
-    return computer;
-}
-```
+This function generates a random number between 1 and 3 to simulate the computer's choice. It uses the `rand()` function and `srand()` for seeding the random number generator.
 
 ### `playerChoiceValidation` Function
-
-Validates the player's input and determines the result of the game.
-
-```c
-void playerChoiceValidation() {
-    int player;
-    int computer = computerChoice();
-    char input[10];
-
-    do {
-        printf("\nChose your play ( Use numbers (1..3) ): ");
-        scanf("%s", input);
-
-        // Check if the input is a valid number
-        int isValid = 1;
-        for (int i = 0; input[i] != '\0'; i++) {
-            if (!isdigit(input[i])) {
-                isValid = 0;
-                break;
-            }
-        }
-
-        if (isValid) {
-            player = atoi(input); // Convert the valid input to an integer
-
-            if (player == 1 || player == 2 || player == 3) {
-                if (computer == player) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Draw!\n");
-                    printf("\n-----------------------------------------------------\n");
-                } else if (computer == 1 && player == 2) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Player won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                } else if (computer == 2 && player == 3) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Player won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                } else if (computer == 3 && player == 1) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Player won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                } else {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Computer won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                }
-            } else {
-                printf("\nInvalid input! Please enter a number between 1 and 3.\n");
-            }
-        }
-
-    } while (player != 1 && player != 2 && player != 3);
-}
-```
+This function validates the player’s input, ensuring they enter a number between 1 and 3. If the input is valid, it compares the player’s choice to the computer's choice and prints the result. If the input is invalid, it prompts the player to re-enter their choice.
 
 ### `main` Function
+The main function is the starting point of the program. It presents a menu with options to start or quit the game. It keeps looping, allowing the player to play multiple rounds until they choose to quit.
 
-Displays the game menu and handles the player's choice to play or quit.
+## Example Run
 
-```c
-int main() {
-    char start;
-    int choice;
-
-    do {
-        printf("\nWelcome to RPS ( Rock Paper Scissors )\n");
-        printf("--------------------------------------\n");
-
-        printf("MENU:\n1. Rock\n2. Paper\n3. Scissors\n");
-        printf("--------------------------------------\n");
-
-        printf("\nDo you wanna play ? ( p to play, q to quit ): ");
-        scanf(" %c", &start);
-
-        if (start == 'p') {
-            playerChoiceValidation();
-        } else if (start == 'q') {
-            printf("Ok, see ya!");
-            break;
-        } else {
-            printf("Invalid input!\n");
-        }
-    } while (start == 'p' || start == 'q');
-
-    return 0;
-}
 ```
+Welcome to RPS ( Rock Paper Scissors )
+--------------------------------------
+MENU:
+1. Rock
+2. Paper
+3. Scissors
+--------------------------------------
 
-## Compilation and Execution
+Do you wanna play ? ( p to play, q to quit ): p
 
-To compile and run the program, use the following commands:
+Chose your play ( Use numbers (1..3) ): 1
 
-```sh
-gcc -o rps RPS.c
-./rps
+-----------------------------------------------------
+Computer: 3, Player: 1, Result: Computer won!
+-----------------------------------------------------
+
+Do you wanna play ? ( p to play, q to quit ): p
+
+Chose your play ( Use numbers (1..3) ): 2
+
+-----------------------------------------------------
+Computer: 1, Player: 2, Result: Player won!
+-----------------------------------------------------
 ```
 
 ## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Acknowledgements
-
-- This project was created as a coding challenge to practice C programming.
-- Inspired by the classic Rock Paper Scissors game.
-
-Enjoy playing Rock Paper Scissors!
-```
+## Contributions
+Feel free to fork, improve, and submit pull requests. Contributions are always welcome!
