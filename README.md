@@ -1,53 +1,48 @@
-# Rock Paper Scissors Game in C
+```markdown
+# Jogo Pedra, Papel e Tesoura (Rock, Paper, Scissors)
 
-## Overview
-This is a simple **Rock Paper Scissors** game implemented in **C** where the user plays against the computer. The game allows the player to select one of the three moves (Rock, Paper, Scissors), and the computer randomly chooses a move. The program determines the winner based on the standard rules of Rock Paper Scissors.
+Este é um simples jogo de **Pedra, Papel e Tesoura** implementado em C, onde o jogador joga contra o computador.
 
-## Features
-- Player can choose between Rock (1), Paper (2), or Scissors (3).
-- The computer randomly selects a choice.
-- The game handles input validation for player’s choice.
-- Displays the result of each round, showing whether the player or computer wins, or if it’s a draw.
-- Option to quit the game anytime.
+## Descrição
 
-## How to Play
-1. When prompted, input your choice using numbers:
-    - `1` for Rock
-    - `2` for Paper
-    - `3` for Scissors
-2. The program will compare your choice with the computer’s choice and display the result.
-3. You can choose to play again or quit the game.
+O jogo é um clássico onde:
+- Pedra (1) vence Tesoura (3).
+- Tesoura (3) vence Papel (2).
+- Papel (2) vence Pedra (1).
+  
+O programa solicita que o jogador escolha entre Pedra, Papel ou Tesoura usando números (1, 2 ou 3), e em seguida, o computador faz sua escolha aleatória. O resultado do jogo é então mostrado na tela, indicando quem venceu, ou se houve um empate.
 
-## Requirements
-- C compiler (e.g., GCC) to compile and run the code.
+## Funcionalidades
 
-## Instructions
-1. Clone or download this repository.
-2. Open a terminal and navigate to the directory where the file is saved.
-3. Compile the code:
+- **Escolha do computador:** O computador escolhe aleatoriamente entre Pedra, Papel ou Tesoura.
+- **Validação da escolha do jogador:** O programa verifica se a entrada do jogador é válida (deve ser um número entre 1 e 3).
+- **Exibição do resultado:** O resultado é exibido após cada rodada, mostrando o que o computador e o jogador escolheram, e quem venceu.
+
+## Como Jogar
+
+1. Compile o código com um compilador C, por exemplo, `gcc`:
    ```bash
    gcc -o rps rps.c
    ```
-4. Run the program:
+
+2. Execute o jogo:
    ```bash
    ./rps
    ```
 
-## Code Explanation
+3. O menu será exibido com as opções:
+   - 1 para **Pedra**
+   - 2 para **Papel**
+   - 3 para **Tesoura**
 
-### `computerChoice` Function
-This function generates a random number between 1 and 3 to simulate the computer's choice. It uses the `rand()` function and `srand()` for seeding the random number generator.
+4. Após isso, você pode escolher jogar ou sair do jogo:
+   - Digite **p** para jogar uma rodada.
+   - Digite **q** para sair do jogo.
 
-### `playerChoiceValidation` Function
-This function validates the player’s input, ensuring they enter a number between 1 and 3. If the input is valid, it compares the player’s choice to the computer's choice and prints the result. If the input is invalid, it prompts the player to re-enter their choice.
-
-### `main` Function
-The main function is the starting point of the program. It presents a menu with options to start or quit the game. It keeps looping, allowing the player to play multiple rounds until they choose to quit.
-
-## Example Run
+## Exemplo de Execução
 
 ```
-Welcome to RPS ( Rock Paper Scissors )
+Welcome to RPS (Rock Paper Scissors)
 --------------------------------------
 MENU:
 1. Rock
@@ -55,25 +50,55 @@ MENU:
 3. Scissors
 --------------------------------------
 
-Do you wanna play ? ( p to play, q to quit ): p
+Do you want to play? (p to play, q to quit): p
 
-Chose your play ( Use numbers (1..3) ): 1
+Choose your play (Use numbers 1 for Rock, 2 for Paper, 3 for Scissors): 1
 
 -----------------------------------------------------
-Computer: 3, Player: 1, Result: Computer won!
+Computer: 2, Player: 1, Result: Computer won!
 -----------------------------------------------------
 
-Do you wanna play ? ( p to play, q to quit ): p
+Do you want to play? (p to play, q to quit): p
 
-Chose your play ( Use numbers (1..3) ): 2
+Choose your play (Use numbers 1 for Rock, 2 for Paper, 3 for Scissors): 2
 
 -----------------------------------------------------
 Computer: 1, Player: 2, Result: Player won!
 -----------------------------------------------------
+
+Do you want to play? (p to play, q to quit): q
+Ok, see ya!
 ```
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Como Funciona
 
-## Contributions
-Feel free to fork, improve, and submit pull requests. Contributions are always welcome!
+- **`computerChoice()`**: Função que gera uma escolha aleatória para o computador, retornando um número entre 1 e 3.
+- **`displayResult(int computer, int player)`**: Função que exibe o resultado da partida, comparando as escolhas do computador e do jogador.
+- **`getPlayerChoice()`**: Função que garante que o jogador insira uma escolha válida entre 1, 2 ou 3.
+- **`main()`**: Função principal que coordena o fluxo do jogo, interagindo com o usuário e chamando as funções apropriadas.
+
+## Compilação e Execução
+
+1. Compile o código com o seguinte comando:
+
+   ```bash
+   gcc -o rps rps.c
+   ```
+
+2. Execute o programa compilado:
+
+   ```bash
+   ./rps
+   ```
+
+## Contribuições
+
+Sinta-se à vontade para fazer um **fork** deste repositório e enviar **pull requests**. Todas as melhorias são bem-vindas!
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+```
+
+Este `README.md` fornece uma visão geral completa do seu projeto, explica como o programa funciona, como compilar e executar o código, e como contribuir para o projeto. Você pode copiar e colar isso diretamente no seu repositório no GitHub.
