@@ -1,45 +1,31 @@
-```markdown
-# Jogo Pedra, Papel e Tesoura (Rock, Paper, Scissors)
+# Rock Paper Scissors Game in C
 
-Este é um simples jogo de **Pedra, Papel e Tesoura** implementado em C, onde o jogador joga contra o computador.
+This is a simple **Rock Paper Scissors** game implemented in C.
 
-## Descrição
+## How to Play
 
-O jogo é um clássico onde:
-- Pedra (1) vence Tesoura (3).
-- Tesoura (3) vence Papel (2).
-- Papel (2) vence Pedra (1).
-  
-O programa solicita que o jogador escolha entre Pedra, Papel ou Tesoura usando números (1, 2 ou 3), e em seguida, o computador faz sua escolha aleatória. O resultado do jogo é então mostrado na tela, indicando quem venceu, ou se houve um empate.
+1. Run the program.
+2. Choose your play by entering:
+   - `1` for Rock
+   - `2` for Paper
+   - `3` for Scissors
+3. The computer will randomly choose its play.
+4. The winner will be displayed on the screen.
+5. You can continue playing or quit the game by entering `p` (play) or `q` (quit).
 
-## Funcionalidades
+## Requirements
 
-- **Escolha do computador:** O computador escolhe aleatoriamente entre Pedra, Papel ou Tesoura.
-- **Validação da escolha do jogador:** O programa verifica se a entrada do jogador é válida (deve ser um número entre 1 e 3).
-- **Exibição do resultado:** O resultado é exibido após cada rodada, mostrando o que o computador e o jogador escolheram, e quem venceu.
+- A C compiler (e.g., `gcc`)
 
-## Como Jogar
+## Compilation and Execution
 
-1. Compile o código com um compilador C, por exemplo, `gcc`:
-   ```bash
-   gcc -o rps rps.c
-   ```
+### Using GCC:
+```sh
+gcc -o rps game.c
+./rps
+```
 
-2. Execute o jogo:
-   ```bash
-   ./rps
-   ```
-
-3. O menu será exibido com as opções:
-   - 1 para **Pedra**
-   - 2 para **Papel**
-   - 3 para **Tesoura**
-
-4. Após isso, você pode escolher jogar ou sair do jogo:
-   - Digite **p** para jogar uma rodada.
-   - Digite **q** para sair do jogo.
-
-## Exemplo de Execução
+## Example Run
 
 ```
 Welcome to RPS (Rock Paper Scissors)
@@ -51,15 +37,6 @@ MENU:
 --------------------------------------
 
 Do you want to play? (p to play, q to quit): p
-
-Choose your play (Use numbers 1 for Rock, 2 for Paper, 3 for Scissors): 1
-
------------------------------------------------------
-Computer: 2, Player: 1, Result: Computer won!
------------------------------------------------------
-
-Do you want to play? (p to play, q to quit): p
-
 Choose your play (Use numbers 1 for Rock, 2 for Paper, 3 for Scissors): 2
 
 -----------------------------------------------------
@@ -70,35 +47,58 @@ Do you want to play? (p to play, q to quit): q
 Ok, see ya!
 ```
 
-## Como Funciona
+## Code Structure
 
-- **`computerChoice()`**: Função que gera uma escolha aleatória para o computador, retornando um número entre 1 e 3.
-- **`displayResult(int computer, int player)`**: Função que exibe o resultado da partida, comparando as escolhas do computador e do jogador.
-- **`getPlayerChoice()`**: Função que garante que o jogador insira uma escolha válida entre 1, 2 ou 3.
-- **`main()`**: Função principal que coordena o fluxo do jogo, interagindo com o usuário e chamando as funções apropriadas.
+- `computerChoice()`: Generates the computer's choice using `rand() % 3 + 1`, which results in a random number between 1 and 3.
+- `displayResult()`: Compares choices and prints the result by checking various conditions to determine the winner or a draw.
+- `getPlayerChoice()`: Gets and validates player input, ensuring the user enters a valid number (1, 2, or 3).
+- `main()`: Controls the game loop, prompting the user to play or quit and calling the appropriate functions.
 
-## Compilação e Execução
+## Understanding `getPlayerChoice()`
 
-1. Compile o código com o seguinte comando:
+The function `getPlayerChoice()` is responsible for getting and validating the player's input. Below is the function with explanations:
 
-   ```bash
-   gcc -o rps rps.c
-   ```
+```c
+int getPlayerChoice() {
+    char input[10];  // Buffer to store user input
+    int player = 0;  
 
-2. Execute o programa compilado:
+    while (1) {  
+        printf("\nChoose your play (Use numbers 1 for Rock, 2 for Paper, 3 for Scissors): ");
+        scanf("%s", input);  // Read input as a string to prevent errors
 
-   ```bash
-   ./rps
-   ```
+        // Check if the input is a valid number
+        int isValid = 1;
+        for (int i = 0; input[i] != '\0'; i++) {
+            if (!isdigit(input[i])) {  // If any character is not a digit, it's invalid
+                isValid = 0;
+                break;
+            }
+        }
 
-## Contribuições
+        if (isValid) {
+            player = atoi(input); // Convert the valid input to an integer
+            if (player >= 1 && player <= 3) { // Ensure the number is within range
+                break; // Exit the loop if input is valid
+            }
+        }
 
-Sinta-se à vontade para fazer um **fork** deste repositório e enviar **pull requests**. Todas as melhorias são bem-vindas!
+        printf("\nInvalid input! Please enter a number between 1 and 3.\n");
+    }
 
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
+    return player; // Return the valid choice
+}
 ```
 
-Este `README.md` fornece uma visão geral completa do seu projeto, explica como o programa funciona, como compilar e executar o código, e como contribuir para o projeto. Você pode copiar e colar isso diretamente no seu repositório no GitHub.
+### Explanation:
+
+- **Input Handling:** The input is stored as a string to handle potential invalid inputs (e.g., letters).
+- **Validation Loop:** The function keeps asking for input until a valid number (1, 2, or 3) is provided.
+- **Digit Checking:** Each character in the input is checked to ensure it's a number.
+- **Conversion:** Once validated, `atoi()` converts the string to an integer.
+- **Error Handling:** If the input is invalid, an error message is displayed, and the user is asked to re-enter.
+
+## License
+
+This project is open-source and available under the MIT License.
+
