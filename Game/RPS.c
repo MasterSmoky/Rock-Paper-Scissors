@@ -4,27 +4,41 @@
 #include <time.h>
 #include <ctype.h>
 
-/*
 
-Rock Paper Scissors
+// Computer choice fucntion
 
-*/
-
-int computerChoice(){
-    srand(time(NULL));
-    int computer = rand() % 3 + 1;
-    return computer;
+int computerChoice() {
+    return rand() % 3 + 1;
 }
 
-void playerChoiceValidation(){
 
-    int player;
-    int computer = computerChoice();
+// Calculate the result and display on screen
+
+void displayResult(int computer, int player) {
+    printf("\n-----------------------------------------------------\n");
+    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
+
+    if (computer == player) {
+        printf("Draw!\n");
+    } else if ((computer == 1 && player == 2) || 
+               (computer == 2 && player == 3) || 
+               (computer == 3 && player == 1)) {
+        printf("Player won!\n");
+    } else {
+        printf("Computer won!\n");
+    }
+    printf("\n-----------------------------------------------------\n");
+}
+
+
+// Check if the player input is valid
+
+int getPlayerChoice() {
     char input[10];
+    int player = 0;
 
-    do
-    {
-        printf("\nChose your play ( Use numbers (1..3) ): ");
+    while (1) {
+        printf("\nChoose your play (Use numbers 1 for Rock, 2 for Paper, 3 for Scissors): ");
         scanf("%s", input);
 
         // Check if the input is a valid number
@@ -38,75 +52,44 @@ void playerChoiceValidation(){
 
         if (isValid) {
             player = atoi(input); // Convert the valid input to an integer
-
-            if (player == 1 || player == 2 || player == 3) {
-                if (computer == player) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Draw!\n");
-                    printf("\n-----------------------------------------------------\n");
-                }
-                else if (computer == 1 && player == 2) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Player won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                }
-                else if (computer == 2 && player == 3) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Player won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                }
-                else if (computer == 3 && player == 1) {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Player won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                }
-                else {
-                    printf("\n-----------------------------------------------------\n");
-                    printf("\nComputer: %d, Player: %d, Result: ", computer, player);
-                    printf("Computer won!\n");
-                    printf("\n-----------------------------------------------------\n");
-                }
-            }
-            else {
-            printf("\nInvalid input! Please enter a number between 1 and 3.\n");
+            if (player >= 1 && player <= 3) {
+                break;
             }
         }
 
-    } while (player != 1 && player != 2 && player != 3);
+        printf("\nInvalid input! Please enter a number between 1 and 3.\n");
+    }
 
+    return player;
 }
 
-int main(){
 
+// Initiate the game and interact with the user
+
+int main() {
     char start;
-    int choice;
+    srand(time(NULL));
 
-    do
-    {
-        printf("\nWelcome to RPS ( Rock Paper Scissors )\n");
-        printf("--------------------------------------\n");
+    printf("\nWelcome to RPS (Rock Paper Scissors)\n");
+    printf("--------------------------------------\n");
+    printf("MENU:\n1. Rock\n2. Paper\n3. Scissors\n");
+    printf("--------------------------------------\n");
 
-        printf("MENU:\n1. Rock\n2. Paper\n3. Scissors\n");
-        printf("--------------------------------------\n");
-
-        printf("\nDo you wanna play ? ( p to play, q to quit ): ");
+    while (1) {
+        printf("\nDo you want to play? (p to play, q to quit): ");
         scanf(" %c", &start);
 
-        if(start == 'p'){
-            playerChoiceValidation();
-        }
-        else if(start == 'q'){
-            printf("Ok, see ya!");
+        if (start == 'p') {
+            int player = getPlayerChoice();
+            int computer = computerChoice();
+            displayResult(computer, player);
+        } else if (start == 'q') {
+            printf("Ok, see ya!\n");
             break;
-        }
-        else{
+        } else {
             printf("Invalid input!\n");
         }
-    } while (start == 'p' && start == 'q');
-    
+    }
+
     return 0;
 }
